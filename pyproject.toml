@@ -8,12 +8,38 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "python-dotenv (>=1.1.1,<2.0.0)",
+    "pydantic (>=2.11.7,<3.0.0)",
 ]
 
 [tool.poetry]
 packages = [{include = "studybot", from = "src"}]
 
 
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.13.0"
+mypy = "^1.17.1"
+
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.ruff]
+line-length = 79
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["ALL"]
+
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 79
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_configs = true
+
