@@ -9,7 +9,7 @@ logger = get_logger(__name__)
 
 
 @time_logger(logger)
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:  # noqa: ARG001
     """
     Start comand for the bot.
 
