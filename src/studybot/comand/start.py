@@ -3,7 +3,12 @@
 from telegram import Update
 from telegram.ext import ContextTypes
 
+from studybot.config import get_logger, time_logger
 
+logger = get_logger(__name__)
+
+
+@time_logger(logger)
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """
     Start comand for the bot.
