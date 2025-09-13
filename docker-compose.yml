@@ -1,0 +1,8 @@
+services:
+  app:
+    build: .
+    container_name: my_app_container
+    volumes:
+      - /path/to/your/backup/directory:/app/src/backup_data
+    env_file:
+      - .env
