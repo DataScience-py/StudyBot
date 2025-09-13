@@ -70,13 +70,16 @@ def time_logger(
     Callable[[Callable[P, T]], Callable[P, T]]
         function decorator.
     """
+
     def decorator(func: Callable[P, T]) -> Callable[P, T]:
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> T:
             s = perf_counter()
             logger.debug("Start %s", func.__name__)
             result = func(*args, **kwargs)
             logger.debug(
-                "Finish %s with seconds %s", func.__name__, perf_counter() - s
+                "Finish %s with seconds %s",
+                func.__name__,
+                perf_counter() - s,
             )
             return result
 
