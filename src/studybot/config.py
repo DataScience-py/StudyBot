@@ -1,5 +1,6 @@
 """Create cpnfiguration class."""
 
+import logging
 from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -25,3 +26,22 @@ class Config(BaseSettings):
 
 
 config = Config()
+
+
+def get_logger(
+    name: str = "StudyBot",
+    level: int = logging.INFO,
+) -> logging.Logger:
+    """Create logger."""
+    logger = logging.getLogger(name)
+    logger.setLevel(level=level)
+    formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    )
+    file_handler = logging.FileHandler("studybot.log")
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+    cmd_handler = logging.StreamHandler()
+    cmd_handler.setFormatter(formatter)
+    logger.addHandler(cmd_handler)
+    return logger
