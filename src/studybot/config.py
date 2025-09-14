@@ -4,7 +4,7 @@ import logging
 from collections.abc import Callable
 from pathlib import Path
 from time import perf_counter
-from typing import ParamSpec, TypeVar
+from typing import ClassVar, ParamSpec, TypeVar
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -25,6 +25,12 @@ class Config(BaseSettings):
 
     TELEGRAM_TOKEN: str = ""
 
+    RAM_TIME_MIN: ClassVar[int] = 10
+    INTERVAL_SAVE_RAM_SEC: ClassVar[int] = 1200
+    LAST_USE_RAM: ClassVar[str] = "LAST_USE_RAM"
+    RUN: bool = False
+    CHECK_INTERVAL: ClassVar[int] = 60
+
     model_config = SettingsConfigDict(env_file=BASE_PATH.parent / ".env")
 
 
@@ -43,6 +49,7 @@ def get_logger(
     )
     file_handler = logging.FileHandler("studybot.log")
     file_handler.setFormatter(formatter)
+    file_handler.setLevel(logging.DEBUG)
     logger.addHandler(file_handler)
     cmd_handler = logging.StreamHandler()
     cmd_handler.setFormatter(formatter)
