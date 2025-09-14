@@ -6,20 +6,25 @@ from typing import Any
 from telegram.ext import (
     Application,
     ApplicationBuilder,
+    CallbackQueryHandler,
     CommandHandler,
 )
 
-from .comand import start
+from .comand import all_tasks, start
 from .config import config, get_logger
 from .database import db
 from .database.database import clear_user_ram_time
+from .qery_handler import handle_callback_query
 
 logger = get_logger()
+background_tasks: set[Any] = set()
 
 
 def add_handlers(app: Application[Any, Any, Any, Any, Any, Any]) -> None:
     """Add handler to bot."""
     app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("tasks", all_tasks))
+    app.add_handler(CallbackQueryHandler(handle_callback_query))
 
 
 async def on_shutdown(app: Application[Any, Any, Any, Any, Any, Any]) -> None:  # noqa: ARG001
@@ -29,6 +34,7 @@ async def on_shutdown(app: Application[Any, Any, Any, Any, Any, Any]) -> None:  
 
 async def task_run() -> None:
     task = asyncio.create_task(clear_user_ram_time())
+    background_tasks.add(task)
 
 
 async def run() -> None:

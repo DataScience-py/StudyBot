@@ -30,6 +30,21 @@ class Config(BaseSettings):
     LAST_USE_RAM: ClassVar[str] = "LAST_USE_RAM"
     RUN: bool = False
     CHECK_INTERVAL: ClassVar[int] = 60
+    ID_TASKS_FILE: str = "ID_TASK.txt"
+    TASK_ANSWER: str = "TASK_ANSWER"
+    TASK_TEXT: str = "TASK_TEXT"
+    ID_TASK_FILE: str = "ID_TASK_FILE.txt"
+    CHOICE_SUBJECTS_TEXT: str = "CHOICE_SUBJECTS_TEXT"
+    CHOICE_NUMBER_TEXT: str = "CHOICE_NUMBER_TEXT {}"
+    CHOICE_TASK_TEXT: str = "CHOICE_TASK_TEXT {} {}"
+    SUBJECTS_START_QERY: str = "SUBJECTS_"
+    NUMBER_START_QERY: str = "NUMBER_"
+    TASK_START_QERY: str = "TASK_"
+    NUMBER: ClassVar[str] = "NUMBER"
+    TASK: ClassVar[str] = "TASK"
+    SUBJECTS: ClassVar[str] = "SUBJECTS"
+    ANSWER_QESTION_TEXT: str = "ANSWER_QESTION_TEXT {} {} {} {}"
+    LAST_ANSWER: ClassVar[str] = "LAST_ANSWER"
 
     model_config = SettingsConfigDict(env_file=BASE_PATH.parent / ".env")
 
