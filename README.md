@@ -21,6 +21,23 @@ git clone https://github.com/DataScience-py/StudyBot.git
 
 You can with docker or your can run in local.
 
+
+## Docker
+
+```bash
+docker compose up -d
+```
+
+
+## local
+
+Activate virtualenv, and install dependencies
+
+```bash
+python src/main.py
+```
+
+
 # Contact me
 
 [anton1programmist@gmail.com](mailto:anton1programmist@gmail.com)
