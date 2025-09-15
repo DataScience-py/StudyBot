@@ -9,6 +9,7 @@ def create_markup(
     """Generate keyboard for callback query."""
     keyboard = []
     row = []
+    objects.sort()
     for item in objects:
         row.append(
             InlineKeyboardButton(item, callback_data=first_callback + item),
