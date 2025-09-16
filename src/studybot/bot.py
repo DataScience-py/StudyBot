@@ -15,7 +15,7 @@ from .comand import all_tasks, start
 from .config import config, get_logger
 from .database import db
 from .database.database import clear_user_ram_time
-from .meassage import check_task_handler
+from .meassage import message_handler
 from .qery_handler import handle_callback_query
 
 logger = get_logger()
@@ -27,7 +27,7 @@ def add_handlers(app: Application[Any, Any, Any, Any, Any, Any]) -> None:
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("tasks", all_tasks))
     app.add_handler(CallbackQueryHandler(handle_callback_query))
-    app.add_handler(MessageHandler(None, check_task_handler))
+    app.add_handler(MessageHandler(None, message_handler))
 
 
 async def on_shutdown(app: Application[Any, Any, Any, Any, Any, Any]) -> None:  # noqa: ARG001

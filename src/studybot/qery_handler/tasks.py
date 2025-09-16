@@ -24,9 +24,19 @@ async def all_task(update: Update, query: CallbackQuery) -> None:
         subject,
         number,
     )
-    markup = create_markup(tasks, first_callback=config.TASK_START_QERY)
-    await query.edit_message_text(
-        text=config.CHOICE_TASK_TEXT.format(subject, number),
-        reply_markup=markup,
-    )
+    if len(tasks) <= config.MAX_LEN_TAKS:
+        markup = create_markup(tasks, first_callback=config.TASK_START_QERY)
+        await query.edit_message_text(
+            text=config.CHOICE_TASK_TEXT.format(subject, number),
+            reply_markup=markup,
+        )
+    else:
+        user_data[config.WAIT_TASK_NUMBER] = True
+        await query.edit_message_text(
+            text=config.CHOICE_TASK_TEXT_WRITE.format(
+                subject,
+                number,
+                len(tasks),
+            ),
+        )
     await db.update_user_data(user_id, user_data)
