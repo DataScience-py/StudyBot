@@ -34,7 +34,15 @@ async def check_task_handler(
         task = await db.get_task(subject=subject, number=number, task_id=task)
         user_data[config.TASK_TEXT] = task[config.TASK_TEXT]
         user_data[config.TASK_ANSWER] = last_answer = task[config.TASK_ANSWER]
-    if user_answer == last_answer:
+    correct_anwer = False
+    if ";" in last_answer:
+        answers = last_answer.split(";")
+        if user_answer in answers:
+            correct_anwer = True
+    elif user_answer == last_answer:
+        correct_anwer = True
+
+    if correct_anwer:
         del user_data[config.TASK_ANSWER]
         del user_data[config.TASK_TEXT]
         await update.message.reply_text("Верно!")
