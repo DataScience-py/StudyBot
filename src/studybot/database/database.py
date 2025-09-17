@@ -69,7 +69,6 @@ class DB:
             for k, v in self.ram_data[user_id].items()
             if k not in self._not_save_data
         }
-        print(data_to_save)
         async with aiofiles.open(user_path, mode="w+", encoding="utf-8") as f:
             await f.write(json.dumps(data_to_save))
 

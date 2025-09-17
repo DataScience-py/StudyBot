@@ -10,7 +10,7 @@ from typing import Any
 from telegram import Update
 from telegram.ext import ContextTypes
 
-from studybot.config import get_logger, time_logger
+from studybot.config import config, get_logger, time_logger
 from studybot.database import db
 
 logger = get_logger(__name__)
@@ -38,7 +38,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:  # 
 
     if update.message is not None and update.effective_user is not None:
         await update.message.reply_text(
-            "Привет, " + update.effective_user.first_name,
+            config.START_TEXT.format(update.effective_user.first_name),
         )
     user_data: dict[str, Any] = await data
     if user_data.get("Hello_time") is None:

@@ -8,6 +8,15 @@ from typing import ClassVar, ParamSpec, TypeVar
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from .text import (
+    ANSWER_QESTION_TEXT,
+    CHOICE_NUMBER_TEXT,
+    CHOICE_SUBJECTS_TEXT,
+    CHOICE_TASK_TEXT,
+    CHOICE_TASK_TEXT_WRITE,
+    START_TEXT,
+)
+
 BASE_PATH = Path(__file__).parent.parent
 
 
@@ -37,6 +46,11 @@ class Config(BaseSettings):
     CHOICE_SUBJECTS_TEXT: str = "CHOICE_SUBJECTS_TEXT"
     CHOICE_NUMBER_TEXT: str = "CHOICE_NUMBER_TEXT {}"
     CHOICE_TASK_TEXT: str = "CHOICE_TASK_TEXT {} {}"
+    FILE_NOT_FOUND_ERROR: str = "FILE_NOT_FOUND_ERROR with index {}"
+    CHOICE_TASK_TEXT_WRITE: str = (
+        "CHOICE_TASK_TEXT_WRITE {} {} Write a number start from 1 to {}"
+    )
+    START_TEXT: str = "START_TEXT"
     SUBJECTS_START_QERY: str = "SUBJECTS_"
     NUMBER_START_QERY: str = "NUMBER_"
     TASK_START_QERY: str = "TASK_"
@@ -45,11 +59,20 @@ class Config(BaseSettings):
     SUBJECTS: ClassVar[str] = "SUBJECTS"
     ANSWER_QESTION_TEXT: str = "ANSWER_QESTION_TEXT {} {} {} {}"
     LAST_ANSWER: ClassVar[str] = "LAST_ANSWER"
+    MAX_LEN_TAKS: int = 40
+    WAIT_TASK_NUMBER: str = "WAIT_TASK_NUMBER"
 
     model_config = SettingsConfigDict(env_file=BASE_PATH.parent / ".env")
 
 
-config = Config()
+config = Config(
+    START_TEXT=START_TEXT,
+    CHOICE_SUBJECTS_TEXT=CHOICE_SUBJECTS_TEXT,
+    CHOICE_NUMBER_TEXT=CHOICE_NUMBER_TEXT,
+    CHOICE_TASK_TEXT_WRITE=CHOICE_TASK_TEXT_WRITE,
+    CHOICE_TASK_TEXT=CHOICE_TASK_TEXT,
+    ANSWER_QESTION_TEXT=ANSWER_QESTION_TEXT,
+)
 
 
 def get_logger(
