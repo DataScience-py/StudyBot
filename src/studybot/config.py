@@ -8,6 +8,15 @@ from typing import ClassVar, ParamSpec, TypeVar
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from .text import (
+    ANSWER_QESTION_TEXT,
+    CHOICE_NUMBER_TEXT,
+    CHOICE_SUBJECTS_TEXT,
+    CHOICE_TASK_TEXT,
+    CHOICE_TASK_TEXT_WRITE,
+    START_TEXT,
+)
+
 BASE_PATH = Path(__file__).parent.parent
 
 
@@ -41,6 +50,7 @@ class Config(BaseSettings):
     CHOICE_TASK_TEXT_WRITE: str = (
         "CHOICE_TASK_TEXT_WRITE {} {} Write a number start from 1 to {}"
     )
+    START_TEXT: str = "START_TEXT"
     SUBJECTS_START_QERY: str = "SUBJECTS_"
     NUMBER_START_QERY: str = "NUMBER_"
     TASK_START_QERY: str = "TASK_"
@@ -55,7 +65,14 @@ class Config(BaseSettings):
     model_config = SettingsConfigDict(env_file=BASE_PATH.parent / ".env")
 
 
-config = Config()
+config = Config(
+    START_TEXT=START_TEXT,
+    CHOICE_SUBJECTS_TEXT=CHOICE_SUBJECTS_TEXT,
+    CHOICE_NUMBER_TEXT=CHOICE_NUMBER_TEXT,
+    CHOICE_TASK_TEXT_WRITE=CHOICE_TASK_TEXT_WRITE,
+    CHOICE_TASK_TEXT=CHOICE_TASK_TEXT,
+    ANSWER_QESTION_TEXT=ANSWER_QESTION_TEXT,
+)
 
 
 def get_logger(
