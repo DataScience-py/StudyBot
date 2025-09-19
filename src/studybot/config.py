@@ -14,6 +14,8 @@ from .text import (
     CHOICE_SUBJECTS_TEXT,
     CHOICE_TASK_TEXT,
     CHOICE_TASK_TEXT_WRITE,
+    FAILED_ANSWER,
+    SHOW_CORRECT_ANSWER,
     START_TEXT,
 )
 
@@ -59,9 +61,13 @@ class Config(BaseSettings):
     SUBJECTS: ClassVar[str] = "SUBJECTS"
     ANSWER_QESTION_TEXT: str = "ANSWER_QESTION_TEXT {} {} {} {}"
     LAST_ANSWER: ClassVar[str] = "LAST_ANSWER"
-    MAX_LEN_TAKS: int = 100
+    MAX_LEN_TAKS: int = 40
     TASK_IMG: str = "TASK_IMG"
     WAIT_TASK_NUMBER: str = "WAIT_TASK_NUMBER"
+    ATTEMPTS: str = "ATTEMPTS"
+    FAILED_ANSWER: str = "FAILED_ANSWER {}"
+    MAX_ATTEMPS: int = 3
+    SHOW_CORRECT_ANSWER: str = "SHOW_CORRECT_ANSWER {}"
 
     model_config = SettingsConfigDict(env_file=BASE_PATH.parent / ".env")
 
@@ -73,6 +79,8 @@ config = Config(
     CHOICE_TASK_TEXT_WRITE=CHOICE_TASK_TEXT_WRITE,
     CHOICE_TASK_TEXT=CHOICE_TASK_TEXT,
     ANSWER_QESTION_TEXT=ANSWER_QESTION_TEXT,
+    FAILED_ANSWER=FAILED_ANSWER,
+    SHOW_CORRECT_ANSWER=SHOW_CORRECT_ANSWER,
 )
 
 

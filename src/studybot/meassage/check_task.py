@@ -47,6 +47,21 @@ async def check_task_handler(
         del user_data[config.TASK_TEXT]
         await update.message.reply_text("Верно!")
     else:
-        await update.message.reply_text("Не верно!")
+        if user_data.get(config.ATTEMPTS, None) is None:
+            user_data[config.ATTEMPTS] = 0
+        user_data[config.ATTEMPTS] += 1
+        print(user_data)
+        if user_data[config.ATTEMPTS] < config.MAX_ATTEMPS:
+            await update.message.reply_text(
+                config.FAILED_ANSWER.format(
+                    config.MAX_ATTEMPS - user_data[config.ATTEMPTS],
+                ),
+            )
+        else:
+            await update.message.reply_text(
+                config.SHOW_CORRECT_ANSWER.format(
+                    " или ".join(last_answer.split(";")),
+                ),
+            )
 
     await db.update_user_data(user_id, user_data)
