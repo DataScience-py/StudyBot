@@ -11,7 +11,7 @@ from telegram.ext import (
     MessageHandler,
 )
 
-from .comand import all_tasks, start
+from .comand import all_tasks, start, task
 from .config import config, get_logger
 from .database import db
 from .database.database import clear_user_ram_time
@@ -26,6 +26,7 @@ def add_handlers(app: Application[Any, Any, Any, Any, Any, Any]) -> None:
     """Add handler to bot."""
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("tasks", all_tasks))
+    app.add_handler(CommandHandler("task", task))
     app.add_handler(CallbackQueryHandler(handle_callback_query))
     app.add_handler(MessageHandler(None, message_handler))
 
