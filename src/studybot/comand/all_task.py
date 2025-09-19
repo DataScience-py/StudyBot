@@ -13,6 +13,9 @@ async def all_tasks(
     update: Update,
     context: ContextTypes.DEFAULT_TYPE,  # noqa: ARG001
 ) -> None:
+    if update.effective_user is None:
+        return
+    data = await db.get_user_db(user_id=update.effective_user.id)
     subjects = await db.get_subjects()
     if update.message is None:
         return
@@ -24,4 +27,12 @@ async def all_tasks(
     await update.message.reply_text(
         text=config.CHOICE_SUBJECTS_TEXT,
         reply_markup=markup,
+    )
+    user_data = await data
+
+    user_data[config.ATTEMPTS] = 0
+
+    await db.update_user_data(
+        update.effective_user.id,
+        user_data,
     )
