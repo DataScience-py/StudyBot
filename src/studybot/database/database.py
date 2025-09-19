@@ -141,7 +141,14 @@ class DB:
         )
         async with aiofiles.open(path_to_file, encoding="utf-8") as f:
             content = await f.read()
-            return cast("dict[str, Any]", json.loads(content))
+            content = json.loads(content)
+        if config.TASK_IMG in content:
+            content[config.TASK_IMG] = [
+                str(self.TASK_DIR_PATH / subject / i.replace("\\", "/"))
+                for i in content[config.TASK_IMG]
+            ]
+
+        return cast("dict[str, Any]", content)
 
     async def get_all_task(self, subject: str, number: str) -> list[str]:
         return [
