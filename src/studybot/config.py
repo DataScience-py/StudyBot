@@ -59,7 +59,8 @@ class Config(BaseSettings):
     SUBJECTS: ClassVar[str] = "SUBJECTS"
     ANSWER_QESTION_TEXT: str = "ANSWER_QESTION_TEXT {} {} {} {}"
     LAST_ANSWER: ClassVar[str] = "LAST_ANSWER"
-    MAX_LEN_TAKS: int = 40
+    MAX_LEN_TAKS: int = 100
+    TASK_IMG: str = "TASK_IMG"
     WAIT_TASK_NUMBER: str = "WAIT_TASK_NUMBER"
 
     model_config = SettingsConfigDict(env_file=BASE_PATH.parent / ".env")
