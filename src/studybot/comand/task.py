@@ -41,4 +41,6 @@ async def task(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             ),
         )
 
+    user_data[config.ATTEMPTS] = 0
+
     await db.update_user_data(update.effective_user.id, user_data)
